@@ -16,7 +16,7 @@ Create table Encomenda(
 	F_NIF					int				not null,
 	Data_realizacao			date			not null,
 	primary key (Num_encomenda),
-	foreign key	(F_NIF)	references fornecedor(NIF)
+	CONSTRAINT FK_Encomenda_Fornecedor foreign key	(F_NIF)	references fornecedor(NIF)
 );
 
 Create table Produto(
@@ -36,6 +36,6 @@ Create table contem(
 	P_codigo				int				not null,
 	Num_encomenda			int				not null,
 	primary key (P_codigo, num_encomenda),
-	foreign key(P_codigo) references produto(codigo), 
-	foreign key(num_encomenda) references encomenda(num_encomenda) 
+	CONSTRAINT FK_contem_produto foreign key(P_codigo) references produto(codigo), 
+	CONSTRAINT FK_contem_Encomenda foreign key(num_encomenda) references encomenda(num_encomenda) 
 );

@@ -17,15 +17,15 @@ create table Autor(
 	inst_endereco		varchar(1024)	not null,
 	Nome				varchar(256)	not null,
 	primary key	(email),
-	foreign key (inst_endereco) references	instituicao(endereco)
+	CONSTRAINT FK_Autor_instituicao foreign key (inst_endereco) references	instituicao(endereco)
 );
 
 create table tem(
 	Auto_email			varchar(256)	not null,
 	art_no_registo			int			not null,
 	Primary key(auto_email,art_no_registo),
-	foreign key	(auto_email) references autor(email),
-	foreign key	(art_no_registo) references artigo(no_registo),
+	CONSTRAINT FK_tem_autor foreign key	(auto_email) references autor(email),
+	CONSTRAINT FK_tem_artigo foreign key	(art_no_registo) references artigo(no_registo),
 
 );
 
@@ -36,7 +36,7 @@ create table participante(
 	data_inscricao		date			not null,
 	inst_endereco		varchar(1024)	not null,
 	Primary key (email),
-	foreign key (inst_endereco) references instituicao(endereco)
+	CONSTRAINT FK_participante_instituicao foreign key (inst_endereco) references instituicao(endereco)
 
 );
 
@@ -44,7 +44,7 @@ create table N_estudante(
 	Email			varchar(256)		not null,
 	ref_bancaria	varchar(16)			not null,
 	Primary key (email, ref_bancaria),
-	foreign key (email) references participante(email)
+	CONSTRAINT FK_N_estudante_participante foreign key (email) references participante(email)
 
 );
 
@@ -52,7 +52,7 @@ create table estudante(
 	Email			varchar(256)		not null,
 	inst_endereco	varchar(1024)		not null,
 	Primary key (email),
-	foreign key (email) references participante (email),
-	foreign key (inst_endereco) references instituicao(endereco)
+	CONSTRAINT FK_estudante_participante foreign key (email) references participante (email),
+	CONSTRAINT FK_estudante_instituicao foreign key (inst_endereco) references instituicao(endereco)
 
 );
