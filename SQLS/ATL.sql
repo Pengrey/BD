@@ -1,11 +1,12 @@
 CREATE TABLE ATL_Pessoa(
-    N_CC                      INT                     NOT NULL           IDENTITY(30000000,1)                                   PRIMARY KEY,
+    N_CC                      INT                     NOT NULL                                             PRIMARY KEY,
     Data_nascimento           DATETIME                NOT NULL, 
     Morada                    VARCHAR(1024)           NOT NULL, 
     Telefone                  VARCHAR(15)             NOT NULL, 
     Nome                      VARCHAR(256)            NOT NULL, 
     Email                     VARCHAR(256)            NOT NULL, 
-    Parentesco                VARCHAR(256)            NOT NULL
+    Parentesco                VARCHAR(256)            NOT NULL,
+    CHECK( N_CC > 100000000)
 );
 GO
 
@@ -28,6 +29,7 @@ CREATE TABLE ATL_Professor(
     Email                     VARCHAR(256)            NOT NULL, 
     Morada                    VARCHAR(1024)           NOT NULL, 
     N_CC                      INT                     NOT NULL,
+    CHECK( N_CC > 100000000)
 );
 GO
 
@@ -43,13 +45,15 @@ CREATE TABLE ATL_Turma(
 GO
 
 CREATE TABLE ATL_Aluno(
-    N_CC                      INT                     NOT NULL           IDENTITY(30000000,1)                                  PRIMARY KEY,
+    N_CC                      INT                     NOT NULL                                             PRIMARY KEY,
     Turma_ID                  INT                     NOT NULL           CONSTRAINT FK_ATL_Aluno_Turma_ID                               FOREIGN KEY (Turma_ID)                     REFERENCES ATL_Turma(Identificador), 
     E_N_CC                    INT                     NOT NULL           CONSTRAINT FK_ATL_Aluno_E_N_CC                                 FOREIGN KEY (E_N_CC)                       REFERENCES ATL_Encarregado_edu(P_N_CC), 
     Data_nascimento           DATETIME                NOT NULL, 
     Morada                    VARCHAR(1024)           NOT NULL, 
     Nome                      VARCHAR(256)            NOT NULL, 
-    Escalao                   VARCHAR(15)             NOT NULL
+    Escalao                   VARCHAR(15)             NOT NULL,
+    CHECK( N_CC > 100000000)
+    
 );
 GO
 
