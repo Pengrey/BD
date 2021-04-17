@@ -14,7 +14,7 @@ CREATE TABLE RentACar_Cliente(
 GO
 
 CREATE TABLE RentACar_Balcao(
-    NIF                       INT                     NOT NULL            IDENTITY(1,1)                     PRIMARY KEY,
+    Numero                       INT                     NOT NULL            IDENTITY(1,1)                     PRIMARY KEY,
     Nome                      VARCHAR(256)            NOT NULL, 
     Endereco                  VARCHAR(1024)           NOT NULL
 );
@@ -32,7 +32,10 @@ CREATE TABLE RentACar_Aluguer(
     Numero                    INT                     NOT NULL            IDENTITY(1,1)                     PRIMARY KEY,
     Duracao                   INT                     NOT NULL, 
     [Data]                    DATETIME                NOT NULL,
-    Cliente_NIF               INT                     NOT NULL            CONSTRAINT FK_RentACar_Aluguer_RentACar_Cliente               FOREIGN KEY(TipoVeiculo_Codigo)            REFERENCES RentACar_TipoVeiculo (Codigo)
+    Cliente_NIF               INT                     NOT NULL            CONSTRAINT FK_RentACar_Aluguer_RentACar_Cliente               FOREIGN KEY(Cliente_NIF)            REFERENCES RentACar_Cliente (NIF),
+    Balcao_numero             INT                     NOT NULL            CONSTRAINT FK_RentACar_Aluguer_RentACar_Balcao	            FOREIGN KEY(Balcao_numero)            REFERENCES RentACar_Balcao (numero),
+    Veiculo_matricula         varchar(16)                     NOT NULL            CONSTRAINT FK_RentACar_Aluguer_RentACar_veiculo              FOREIGN KEY(Veiculo_matricula)            REFERENCES RentACar_veiculo (matricula)
+	
 );
 GO
 
@@ -54,6 +57,8 @@ GO
 CREATE TABLE RentACar_Pesado(
     Codigo                    INT                     NOT NULL            PRIMARY KEY CONSTRAINT FK_RentACar_TipoVeiculo_RentACar_Pesado FOREIGN KEY(Codigo)                       REFERENCES RentACar_TipoVeiculo (Codigo),
     Peso                      INT                     NOT NULL, 
-    Passageiros               INT                     NOT NULL 
+    Passageiros               INT                     NOT NULL ,
+	CHECK(Peso > 0),
+	CHECK(Passageiros > 0)
 );
 GO
