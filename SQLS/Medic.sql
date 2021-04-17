@@ -1,20 +1,21 @@
 CREATE TABLE Medic_Farmacia(
-    NIF                       INT                     NOT NULL                                              PRIMARY KEY,
+    NIF                       INT                     NOT NULL		                                         PRIMARY KEY,
     Nome                      VARCHAR(256)            NOT NULL, 
     Endereco                  VARCHAR(1024)           NOT NULL, 
-    Telefone                  VARCHAR(15)             NOT NULL
+    Telefone                  VARCHAR(15)             NOT NULL,
+	CHECK(NIF > 100000000)
 );
 GO
 
 CREATE TABLE Medic_Medico(
-    Numero_id                 INT                     NOT NULL                                              PRIMARY KEY,
+    Numero_id                 INT                     NOT NULL      IDENTITY(1,1)                                         PRIMARY KEY,
     Nome                      VARCHAR(256)            NOT NULL, 
     Endereco                  VARCHAR(256)            NOT NULL    
 );
 GO
 
 CREATE TABLE Medic_Paciente(
-    Numero_utente             INT                     NOT NULL                                              PRIMARY KEY,
+    Numero_utente             INT                     NOT NULL      IDENTITY(1,1)                                    PRIMARY KEY,
     Nome                      VARCHAR(256)            NOT NULL, 
     Data_nascimento           DATETIME                NOT NULL, 
     Endereco                  VARCHAR(256)            NOT NULL
@@ -22,7 +23,7 @@ CREATE TABLE Medic_Paciente(
 GO
 
 CREATE TABLE Medic_Precricao(
-    Numero_unico              INT                     NOT NULL                                              PRIMARY KEY,
+    Numero_unico              INT                     NOT NULL       IDENTITY(1,1)                                       PRIMARY KEY,
     F_NIF                     INT                     NOT NULL            CONSTRAINT FK_Medic_Prescricao_Medic_F_NIF                    FOREIGN KEY (F_NIF)                        REFERENCES Medic_Farmacia(NIF), 
     C_consulta_ID             INT                     NOT NULL            CONSTRAINT FK_Medic_Prescricao_Medic_consulta_ID              FOREIGN KEY (C_consulta_ID)                REFERENCES Medic_Consulta(consulta_ID), 
     [Data]                    DATETIME                NOT NULL, 
@@ -31,7 +32,7 @@ CREATE TABLE Medic_Precricao(
 GO
 
 CREATE TABLE Medic_Consulta(
-    consulta_ID               INT                     NOT NULL                                              PRIMARY KEY
+    consulta_ID               INT                     NOT NULL        IDENTITY(1,1)                                      PRIMARY KEY,
     P_num_unico               INT                     NOT NULL           CONSTRAINT FK_Medic_Consulta_Medic_P_num_unico                 FOREIGN KEY (P_num_unico)                  REFERENCES Medic_Precricao(Numero_unico), 
     M_numero_id               INT                     NOT NULL           CONSTRAINT FK_Medic_Consulta_Medic_M_numero_id                 FOREIGN KEY (M_numero_id)                  REFERENCES Medic_Medico(Numero_id), 
     P_no_utente               INT                     NOT NULL           CONSTRAINT FK_Medic_Consulta_Medic_P_no_utente                 FOREIGN KEY (P_no_utente)                  REFERENCES Medic_Paciente(Numero_utente)
@@ -39,7 +40,7 @@ CREATE TABLE Medic_Consulta(
 GO
 
 CREATE TABLE Medic_Farmaceutica(
-    No_registo_nacional       INT                     NOT NULL                                              PRIMARY KEY,
+    No_registo_nacional       INT                     NOT NULL      IDENTITY(1,1)                                        PRIMARY KEY,
     Nome                      VARCHAR(256)            NOT NULL, 
     Telefone                  VARCHAR(15)             NOT NULL, 
     Endereco                  VARCHAR(256)            NOT NULL 
