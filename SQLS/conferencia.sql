@@ -33,7 +33,7 @@ create table participante(
 	Email				varchar(256)	not null,
 	nome				varchar(256)	not null,
 	morada				varchar(256)	not null,
-	data_inscricao		date			not null,
+	data_inscricao		datetime		not null,
 	inst_endereco		varchar(1024)	not null,
 	Primary key (email),
 	CONSTRAINT FK_participante_instituicao foreign key (inst_endereco) references instituicao(endereco)

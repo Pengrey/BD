@@ -14,7 +14,7 @@ Create table fornecedor(
 Create table Encomenda(
 	Num_encomenda			int				not null	IDENTITY(1,1),
 	F_NIF					int				not null,
-	Data_realizacao			date			not null,
+	Data_realizacao			datetime		not null,
 	primary key (Num_encomenda),
 	CONSTRAINT FK_Encomenda_Fornecedor foreign key	(F_NIF)	references fornecedor(NIF)
 );

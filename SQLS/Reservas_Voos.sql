@@ -32,8 +32,8 @@
 		leg_no					int			not null		IDENTITY(1,1),
 		Airport1				int			not null,
 		Airport2				int			not null,
-		Scheduled_d1			date		not null,
-		Scheduled_d2			date		not null,
+		Scheduled_d1			datetime	not null,
+		Scheduled_d2			datetime	not null,
 
 		Primary key (Flight_Number, leg_no),
 		CONSTRAINT FK_Flight_leg_Flight Foreign key(Flight_Number) REFERENCES Reservas_de_Voos_Flight(number),
@@ -48,8 +48,8 @@
 		flight_number		int				not null,
 		flight_leg_no		int				not null,
 		no_of_avail_seats	int				not null,
-		arr_time			time			not null,
-		Dep_time			time			not null,
+		arr_time			datetime		not null,
+		Dep_time			datetime		not null,
 
 		primary key([date], flight_number, flight_leg_no),
 		CONSTRAINT FK_Leg_instance_Flight_leg foreign key(flight_number)	REFERENCES Reservas_de_Voos_Flight_leg (Flight_Number),
