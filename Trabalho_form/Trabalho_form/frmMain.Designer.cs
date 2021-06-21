@@ -148,18 +148,18 @@ namespace Trabalho_form
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(15, 93);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 15);
+            this.label3.Size = new System.Drawing.Size(62, 15);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Avaliação";
+            this.label3.Text = "Evaluation";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(15, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 15);
+            this.label1.Size = new System.Drawing.Size(77, 15);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Nome";
+            this.label1.Text = "Anime Name";
             // 
             // frmMain
             // 

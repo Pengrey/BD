@@ -40,8 +40,15 @@ namespace Trabalho_form
                 {
                     MessageBox.Show("Login Successful!");
                     this.Hide();
-                    frmMain fm = new frmMain();
-                    fm.Show();
+                    if (1 == int.Parse(ds.Tables[0].Rows[0][5/* atribute isAdmin index*/].ToString())) { // TODO check atribute column
+                        frmMain fm = new frmMain(text_UserName.Text);
+                        fm.Show();
+                    }
+                    else {
+                        Form2 fm = new Form2();
+                        fm.Show();
+                    }
+
                 }
                 else
                 {

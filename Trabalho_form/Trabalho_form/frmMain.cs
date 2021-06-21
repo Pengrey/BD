@@ -10,9 +10,11 @@ namespace Trabalho_form
         private SqlConnection cn;
         private int currentAnime;
         private bool adding;
-        public frmMain()
+        private string userName;
+        public frmMain(String userName)
         {
             InitializeComponent();
+            this.userName = userName;
         }
         //btn_LogOut Click Event
         private void btn_LogOut_Click(object sender, EventArgs e)
@@ -325,5 +327,6 @@ namespace Trabalho_form
         {
             Application.Exit();
         }
+
     }
 }
