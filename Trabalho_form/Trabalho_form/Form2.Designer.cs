@@ -45,7 +45,7 @@ namespace Trabalho_form
             this.Anime_Name_box = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.Author_label = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -94,6 +94,7 @@ namespace Trabalho_form
             this.Anime_list_box.Name = "Anime_list_box";
             this.Anime_list_box.Size = new System.Drawing.Size(259, 814);
             this.Anime_list_box.TabIndex = 0;
+            this.Anime_list_box.SelectedIndexChanged += new System.EventHandler(this.Anime_list_box_SelectedIndexChanged);
             // 
             // Anime_Box
             // 
@@ -111,7 +112,7 @@ namespace Trabalho_form
             this.Anime_Box.Controls.Add(this.Anime_Name_box);
             this.Anime_Box.Controls.Add(this.label6);
             this.Anime_Box.Controls.Add(this.label5);
-            this.Anime_Box.Controls.Add(this.label4);
+            this.Anime_Box.Controls.Add(this.Author_label);
             this.Anime_Box.Controls.Add(this.label3);
             this.Anime_Box.Controls.Add(this.label2);
             this.Anime_Box.Controls.Add(this.label1);
@@ -140,6 +141,8 @@ namespace Trabalho_form
             this.Anime_Ok_btn.TabIndex = 17;
             this.Anime_Ok_btn.Text = "Ok";
             this.Anime_Ok_btn.UseVisualStyleBackColor = true;
+            this.Anime_Ok_btn.Visible = false;
+            this.Anime_Ok_btn.Click += new System.EventHandler(this.Anime_Ok_btn_Click);
             // 
             // Anime_Cancel_btn
             // 
@@ -149,6 +152,8 @@ namespace Trabalho_form
             this.Anime_Cancel_btn.TabIndex = 16;
             this.Anime_Cancel_btn.Text = "Cancel";
             this.Anime_Cancel_btn.UseVisualStyleBackColor = true;
+            this.Anime_Cancel_btn.Visible = false;
+            this.Anime_Cancel_btn.Click += new System.EventHandler(this.Anime_Cancel_btn_Click);
             // 
             // Anime_Add_btn
             // 
@@ -158,6 +163,7 @@ namespace Trabalho_form
             this.Anime_Add_btn.TabIndex = 15;
             this.Anime_Add_btn.Text = "Add";
             this.Anime_Add_btn.UseVisualStyleBackColor = true;
+            this.Anime_Add_btn.Click += new System.EventHandler(this.Anime_Add_btn_Click);
             // 
             // Est_email_label
             // 
@@ -167,6 +173,7 @@ namespace Trabalho_form
             this.Est_email_label.Size = new System.Drawing.Size(41, 15);
             this.Est_email_label.TabIndex = 14;
             this.Est_email_label.Text = "Studio";
+            this.Est_email_label.Visible = false;
             // 
             // Anime_Author_box
             // 
@@ -176,6 +183,8 @@ namespace Trabalho_form
             this.Anime_Author_box.Name = "Anime_Author_box";
             this.Anime_Author_box.Size = new System.Drawing.Size(392, 169);
             this.Anime_Author_box.TabIndex = 13;
+            this.Anime_Author_box.Visible = false;
+            this.Anime_Author_box.SelectedIndexChanged += new System.EventHandler(this.Anime_Author_box_SelectedIndexChanged);
             // 
             // Anime_Est_email_box
             // 
@@ -185,9 +194,12 @@ namespace Trabalho_form
             this.Anime_Est_email_box.Name = "Anime_Est_email_box";
             this.Anime_Est_email_box.Size = new System.Drawing.Size(392, 184);
             this.Anime_Est_email_box.TabIndex = 12;
+            this.Anime_Est_email_box.Visible = false;
+            this.Anime_Est_email_box.SelectedIndexChanged += new System.EventHandler(this.Anime_Est_email_box_SelectedIndexChanged);
             // 
             // Anime_date
             // 
+            this.Anime_date.Enabled = false;
             this.Anime_date.Location = new System.Drawing.Point(491, 216);
             this.Anime_date.Name = "Anime_date";
             this.Anime_date.Size = new System.Drawing.Size(189, 23);
@@ -195,7 +207,12 @@ namespace Trabalho_form
             // 
             // Anime_State_box
             // 
+            this.Anime_State_box.Enabled = false;
             this.Anime_State_box.FormattingEnabled = true;
+            this.Anime_State_box.Items.AddRange(new object[] {
+            "Soon",
+            "Ongoing",
+            "Finished"});
             this.Anime_State_box.Location = new System.Drawing.Point(324, 258);
             this.Anime_State_box.Name = "Anime_State_box";
             this.Anime_State_box.Size = new System.Drawing.Size(121, 23);
@@ -203,6 +220,7 @@ namespace Trabalho_form
             // 
             // Anime_Evaluation
             // 
+            this.Anime_Evaluation.DecimalPlaces = 1;
             this.Anime_Evaluation.Increment = new decimal(new int[] {
             1,
             0,
@@ -215,6 +233,7 @@ namespace Trabalho_form
             0,
             0});
             this.Anime_Evaluation.Name = "Anime_Evaluation";
+            this.Anime_Evaluation.ReadOnly = true;
             this.Anime_Evaluation.Size = new System.Drawing.Size(46, 23);
             this.Anime_Evaluation.TabIndex = 9;
             // 
@@ -223,6 +242,7 @@ namespace Trabalho_form
             this.Anime_Description_box.Location = new System.Drawing.Point(285, 102);
             this.Anime_Description_box.Multiline = true;
             this.Anime_Description_box.Name = "Anime_Description_box";
+            this.Anime_Description_box.ReadOnly = true;
             this.Anime_Description_box.Size = new System.Drawing.Size(395, 101);
             this.Anime_Description_box.TabIndex = 8;
             // 
@@ -230,6 +250,7 @@ namespace Trabalho_form
             // 
             this.Anime_Name_box.Location = new System.Drawing.Point(285, 43);
             this.Anime_Name_box.Name = "Anime_Name_box";
+            this.Anime_Name_box.ReadOnly = true;
             this.Anime_Name_box.Size = new System.Drawing.Size(395, 23);
             this.Anime_Name_box.TabIndex = 7;
             // 
@@ -251,14 +272,15 @@ namespace Trabalho_form
             this.label5.TabIndex = 5;
             this.label5.Text = "State";
             // 
-            // label4
+            // Author_label
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(285, 517);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 15);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Author";
+            this.Author_label.AutoSize = true;
+            this.Author_label.Location = new System.Drawing.Point(285, 517);
+            this.Author_label.Name = "Author_label";
+            this.Author_label.Size = new System.Drawing.Size(44, 15);
+            this.Author_label.TabIndex = 4;
+            this.Author_label.Text = "Author";
+            this.Author_label.Visible = false;
             // 
             // label3
             // 
@@ -591,7 +613,7 @@ namespace Trabalho_form
         private System.Windows.Forms.ListBox Anime_list_box;
         private System.Windows.Forms.GroupBox Anime_Box;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label Author_label;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label Est_email_label;

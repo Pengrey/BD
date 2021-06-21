@@ -56,6 +56,7 @@ namespace Trabalho_form
             // 
             this.text_Password.Location = new System.Drawing.Point(135, 109);
             this.text_Password.Name = "text_Password";
+            this.text_Password.PasswordChar = '*';
             this.text_Password.Size = new System.Drawing.Size(228, 23);
             this.text_Password.TabIndex = 2;
             // 

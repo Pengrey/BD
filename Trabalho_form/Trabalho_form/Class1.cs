@@ -13,10 +13,12 @@ namespace Trabalho_form
 
 		private String _Name;
 		private String _Description;
-		private String _Avaliation;
+		private decimal  _Avaliation;
 		private String _ReleaseDate;
 		private String _Progresso;
 		private String _Estado;
+		private String _Estudio;
+		private String _Autor;
 		public String Name
 		{
 			get { return _Name; }
@@ -31,10 +33,22 @@ namespace Trabalho_form
 			}
 		}
 
+		public String Autor
+		{
+			get { return _Autor; }
+			set { _Autor = value; }
+		}
+
 		public String Progresso
 		{
 			get { return _Progresso; }
 			set { _Progresso = value; }
+		}
+
+		public String Estudio
+		{
+			get { return _Estudio; }
+			set { _Estudio = value; }
 		}
 
 		public String Estado
@@ -50,7 +64,7 @@ namespace Trabalho_form
 			set {_Description = value;}
 		}
 
-		public String Avaliation
+		public decimal Avaliation
 		{
 			get { return _Avaliation; }
 			set { _Avaliation = value; }
