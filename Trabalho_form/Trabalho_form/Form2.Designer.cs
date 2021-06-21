@@ -50,7 +50,7 @@ namespace Trabalho_form
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.Season_box = new System.Windows.Forms.GroupBox();
-            this.Season_Edit_btn = new System.Windows.Forms.Button();
+            this.Season_Delete_btn = new System.Windows.Forms.Button();
             this.Season_Ok_btn = new System.Windows.Forms.Button();
             this.Season_Cancel_btn = new System.Windows.Forms.Button();
             this.Season_Add_btn = new System.Windows.Forms.Button();
@@ -64,7 +64,7 @@ namespace Trabalho_form
             this.Season_Name_box = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.Episode_box = new System.Windows.Forms.GroupBox();
-            this.Episode_Edit_btn = new System.Windows.Forms.Button();
+            this.Episode_Delete_btn = new System.Windows.Forms.Button();
             this.Episode_Ok_btn = new System.Windows.Forms.Button();
             this.Episode_Cancel_btn = new System.Windows.Forms.Button();
             this.Episode_Add_btn = new System.Windows.Forms.Button();
@@ -312,7 +312,7 @@ namespace Trabalho_form
             // 
             // Season_box
             // 
-            this.Season_box.Controls.Add(this.Season_Edit_btn);
+            this.Season_box.Controls.Add(this.Season_Delete_btn);
             this.Season_box.Controls.Add(this.Season_Ok_btn);
             this.Season_box.Controls.Add(this.Season_Cancel_btn);
             this.Season_box.Controls.Add(this.Season_Add_btn);
@@ -332,14 +332,15 @@ namespace Trabalho_form
             this.Season_box.TabStop = false;
             this.Season_box.Text = "Seasons";
             // 
-            // Season_Edit_btn
+            // Season_Delete_btn
             // 
-            this.Season_Edit_btn.Location = new System.Drawing.Point(569, 396);
-            this.Season_Edit_btn.Name = "Season_Edit_btn";
-            this.Season_Edit_btn.Size = new System.Drawing.Size(75, 23);
-            this.Season_Edit_btn.TabIndex = 12;
-            this.Season_Edit_btn.Text = "Edit";
-            this.Season_Edit_btn.UseVisualStyleBackColor = true;
+            this.Season_Delete_btn.Location = new System.Drawing.Point(569, 396);
+            this.Season_Delete_btn.Name = "Season_Delete_btn";
+            this.Season_Delete_btn.Size = new System.Drawing.Size(75, 23);
+            this.Season_Delete_btn.TabIndex = 12;
+            this.Season_Delete_btn.Text = "Delete";
+            this.Season_Delete_btn.UseVisualStyleBackColor = true;
+            this.Season_Delete_btn.Click += new System.EventHandler(this.Season_Delete_btn_Click);
             // 
             // Season_Ok_btn
             // 
@@ -349,6 +350,8 @@ namespace Trabalho_form
             this.Season_Ok_btn.TabIndex = 11;
             this.Season_Ok_btn.Text = "Ok";
             this.Season_Ok_btn.UseVisualStyleBackColor = true;
+            this.Season_Ok_btn.Visible = false;
+            this.Season_Ok_btn.Click += new System.EventHandler(this.Season_Ok_btn_Click);
             // 
             // Season_Cancel_btn
             // 
@@ -358,6 +361,8 @@ namespace Trabalho_form
             this.Season_Cancel_btn.TabIndex = 10;
             this.Season_Cancel_btn.Text = "Cancel";
             this.Season_Cancel_btn.UseVisualStyleBackColor = true;
+            this.Season_Cancel_btn.Visible = false;
+            this.Season_Cancel_btn.Click += new System.EventHandler(this.Season_Cancel_btn_Click);
             // 
             // Season_Add_btn
             // 
@@ -367,6 +372,7 @@ namespace Trabalho_form
             this.Season_Add_btn.TabIndex = 9;
             this.Season_Add_btn.Text = "Add";
             this.Season_Add_btn.UseVisualStyleBackColor = true;
+            this.Season_Add_btn.Click += new System.EventHandler(this.Season_Add_btn_Click);
             // 
             // Season_date
             // 
@@ -386,6 +392,7 @@ namespace Trabalho_form
             // 
             // Season_Evaluation
             // 
+            this.Season_Evaluation.DecimalPlaces = 1;
             this.Season_Evaluation.Location = new System.Drawing.Point(350, 216);
             this.Season_Evaluation.Name = "Season_Evaluation";
             this.Season_Evaluation.Size = new System.Drawing.Size(46, 23);
@@ -425,6 +432,7 @@ namespace Trabalho_form
             this.Season_list_box.Name = "Season_list_box";
             this.Season_list_box.Size = new System.Drawing.Size(259, 394);
             this.Season_list_box.TabIndex = 2;
+            this.Season_list_box.SelectedIndexChanged += new System.EventHandler(this.Season_list_box_SelectedIndexChanged);
             // 
             // Season_Name_box
             // 
@@ -444,7 +452,7 @@ namespace Trabalho_form
             // 
             // Episode_box
             // 
-            this.Episode_box.Controls.Add(this.Episode_Edit_btn);
+            this.Episode_box.Controls.Add(this.Episode_Delete_btn);
             this.Episode_box.Controls.Add(this.Episode_Ok_btn);
             this.Episode_box.Controls.Add(this.Episode_Cancel_btn);
             this.Episode_box.Controls.Add(this.Episode_Add_btn);
@@ -464,14 +472,14 @@ namespace Trabalho_form
             this.Episode_box.TabStop = false;
             this.Episode_box.Text = "Episodes";
             // 
-            // Episode_Edit_btn
+            // Episode_Delete_btn
             // 
-            this.Episode_Edit_btn.Location = new System.Drawing.Point(569, 380);
-            this.Episode_Edit_btn.Name = "Episode_Edit_btn";
-            this.Episode_Edit_btn.Size = new System.Drawing.Size(75, 23);
-            this.Episode_Edit_btn.TabIndex = 12;
-            this.Episode_Edit_btn.Text = "Edit";
-            this.Episode_Edit_btn.UseVisualStyleBackColor = true;
+            this.Episode_Delete_btn.Location = new System.Drawing.Point(569, 380);
+            this.Episode_Delete_btn.Name = "Episode_Delete_btn";
+            this.Episode_Delete_btn.Size = new System.Drawing.Size(75, 23);
+            this.Episode_Delete_btn.TabIndex = 12;
+            this.Episode_Delete_btn.Text = "Delete";
+            this.Episode_Delete_btn.UseVisualStyleBackColor = true;
             // 
             // Episode_Ok_btn
             // 
@@ -481,6 +489,7 @@ namespace Trabalho_form
             this.Episode_Ok_btn.TabIndex = 11;
             this.Episode_Ok_btn.Text = "Ok";
             this.Episode_Ok_btn.UseVisualStyleBackColor = true;
+            this.Episode_Ok_btn.Visible = false;
             // 
             // Episode_Cancel_btn
             // 
@@ -490,6 +499,7 @@ namespace Trabalho_form
             this.Episode_Cancel_btn.TabIndex = 10;
             this.Episode_Cancel_btn.Text = "Cancel";
             this.Episode_Cancel_btn.UseVisualStyleBackColor = true;
+            this.Episode_Cancel_btn.Visible = false;
             // 
             // Episode_Add_btn
             // 
@@ -653,11 +663,11 @@ namespace Trabalho_form
         private System.Windows.Forms.Button Anime_Cancel_btn;
         private System.Windows.Forms.Button Anime_Ok_btn;
         private System.Windows.Forms.Button Anime_Delete_btn;
-        private System.Windows.Forms.Button Season_Edit_btn;
+        private System.Windows.Forms.Button Season_Delete_btn;
         private System.Windows.Forms.Button Season_Ok_btn;
         private System.Windows.Forms.Button Season_Cancel_btn;
         private System.Windows.Forms.Button Season_Add_btn;
-        private System.Windows.Forms.Button Episode_Edit_btn;
+        private System.Windows.Forms.Button Episode_Delete_btn;
         private System.Windows.Forms.Button Episode_Ok_btn;
         private System.Windows.Forms.Button Episode_Cancel_btn;
         private System.Windows.Forms.Button Episode_Add_btn;

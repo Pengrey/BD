@@ -32,6 +32,7 @@ namespace Trabalho_form
         {
             cn = getSGBDConnection();
             loadAnimes();
+            loadSeasons();
         }
 
         private void btn_LogOut_Click(object sender, EventArgs e)
@@ -57,6 +58,7 @@ namespace Trabalho_form
             return cn.State == ConnectionState.Open;
         }
 
+        // Animes
         private void loadAnimes()
         {
             if (!verifySGBDConnection())
@@ -152,6 +154,7 @@ namespace Trabalho_form
                 currentAnime = Anime_list_box.SelectedIndex;
                 ShowAnime();
             }
+            loadSeasons();
         }
 
         private void Anime_Est_email_box_SelectedIndexChanged(object sender, EventArgs e)
@@ -192,6 +195,21 @@ namespace Trabalho_form
             {
                 AnimeLockControls();
             }
+        }
+
+        private void Anime_Ok_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveAnime();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            int idx = Anime_list_box.FindString(Anime_Name_box.Text);
+            Anime_list_box.SelectedIndex = idx;
+            AnimeHideButtons();
         }
 
         private void Anime_Delete_btn_Click(object sender, EventArgs e)
@@ -302,22 +320,7 @@ namespace Trabalho_form
             return true;
         }
 
-        private void Anime_Ok_btn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SaveAnime();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            int idx = Anime_list_box.FindString(Anime_Name_box.Text);
-            Anime_list_box.SelectedIndex = idx;
-            AnimeHideButtons();
-        }
-
-        // Helper routines
+        // Anime Helper routines
         public void AnimeLockControls()
         {
             Anime_Name_box.ReadOnly = true;
@@ -370,6 +373,247 @@ namespace Trabalho_form
             Anime_Description_box.Text = "";
             Anime_Evaluation.Value = 0.0M;
             Anime_State_box.Text = "";
+        }
+
+        // Seasons
+
+        private void loadSeasons()
+        {
+            if (!verifySGBDConnection())
+                return;
+
+            SqlCommand cmd = new SqlCommand("Select * from AnimeDB.Temporada WHERE Anime_nome = @Anime_nome", cn);
+            cmd.Parameters.AddWithValue("@Anime_nome", ((Anime) Anime_list_box.Items[currentAnime]).Name);
+            SqlDataReader reader = cmd.ExecuteReader();
+            Season_list_box.Items.Clear();
+
+            while (reader.Read())
+            {
+                Season S = new Season();
+                S.Name = reader["Nome"].ToString();
+                S.AnimeName = reader["Anime_nome"].ToString();
+                S.Description = reader["Descricao"].ToString();
+                S.Avaliation = (decimal)reader["Avaliacao"];
+                S.Estudio = reader["Est_email"].ToString();
+                S.ReleaseDate = reader["Data_lancamento"].ToString();
+                Season_list_box.Items.Add(S);
+            }
+
+            cn.Close();
+
+            currentSeason = 0;
+            ShowSeason();
+        }
+
+        public void ShowSeason()
+        {
+            if (Season_list_box.Items.Count == 0 | currentSeason < 0)
+                return;
+            Season season = new Season();
+            season = (Season)Season_list_box.Items[currentSeason];
+            Season_Name_box.Text = season.Name;
+            Season_Description_box.Text = season.Description;
+            Season_Evaluation.Value = (decimal)season.Avaliation;
+            Season_date.Value = DateTime.ParseExact(season.ReleaseDate.Split()[0], "dd/mm/yyyy", provider);
+        }
+
+        private void Season_list_box_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Season_list_box.SelectedIndex >= 0)
+            {
+                currentSeason = Season_list_box.SelectedIndex;
+                ShowSeason();
+            }
+        }
+
+        private void Season_Add_btn_Click(object sender, EventArgs e)
+        {
+            SeasonClearFields();
+            SeasonShowButtons();
+        }
+
+        private void Season_Cancel_btn_Click(object sender, EventArgs e)
+        {
+            SeasonHideButtons();
+            if (Season_list_box.Items.Count > 0)
+            {
+                currentSeason = Season_list_box.SelectedIndex;
+                if (currentSeason < 0)
+                    currentSeason = 0;
+                ShowSeason();
+            }
+            else
+            {
+                SeasonLockControls();
+            }
+        }
+
+        private void Season_Ok_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveSeason();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            int idx = Season_list_box.FindString(Season_Name_box.Text);
+            Season_list_box.SelectedIndex = idx;
+            SeasonHideButtons();
+        }
+
+        private bool SaveSeason()
+        {
+            Season season = (Season)Season_list_box.Items[currentSeason];
+            Anime anime = (Anime)Anime_list_box.Items[currentAnime];
+            try
+            {
+                season.Name = Season_Name_box.Text;
+                season.AnimeName = anime.Name;
+                season.Description = Season_Description_box.Text;
+                season.Avaliation = Season_Evaluation.Value;
+                season.Estudio = anime.Estudio;
+                season.ReleaseDate = Season_date.Value.ToString("yyyy-MM-dd");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+            SubmitSeason(season);
+            Season_list_box.Items.Add(season);
+            loadSeasons();
+            return true;
+        }
+
+        private void SubmitSeason(Season S)
+        {
+            if (!verifySGBDConnection())
+                return;
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.CommandText = "INSERT INTO AnimeDB.Temporada(Nome,Anime_nome,Descricao,Avaliacao,Est_email,Data_lancamento) VALUES ( @Nome, @Anime_nome, @Descricao, @Avaliacao, @Est_email,  @Data_lancamento)";
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@Nome", S.Name);
+            cmd.Parameters.AddWithValue("@Anime_nome", S.AnimeName);
+            cmd.Parameters.AddWithValue("@Descricao", S.Description);
+            cmd.Parameters.AddWithValue("@Avaliacao", S.Avaliation);
+            cmd.Parameters.AddWithValue("@Est_email", S.Estudio);
+            cmd.Parameters.AddWithValue("@Data_lancamento", S.ReleaseDate);
+            cmd.Connection = cn;
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to update anime in database. \n ERROR MESSAGE: \n" + ex.Message);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        private void Season_Delete_btn_Click(object sender, EventArgs e)
+        {
+            if (Season_list_box.SelectedIndex > -1)
+            {
+                try
+                {
+                    Season season = (Season)Season_list_box.SelectedItem;
+                    RemoveSeason(season.Name, season.AnimeName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                Season_list_box.Items.RemoveAt(Season_list_box.SelectedIndex);
+                if (currentSeason == Season_list_box.Items.Count)
+                    currentSeason = Season_list_box.Items.Count - 1;
+                if (currentSeason == -1)
+                {
+                    SeasonClearFields();
+                    MessageBox.Show("There are no more seasons");
+                }
+                else
+                {
+                    ShowSeason();
+                }
+            }
+        }
+
+        private void RemoveSeason(string SeasonNome, string SeasonAnime)
+        {
+            if (!verifySGBDConnection())
+                return;
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.CommandText = "EXEC AnimeDB.DeleteTemp @seasonAnime, @seasonNome";
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@seasonAnime", SeasonAnime);
+            cmd.Parameters.AddWithValue("@seasonNome", SeasonNome);
+            cmd.Connection = cn;
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to delete season in database. \n ERROR MESSAGE: \n" + ex.Message);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        // Season Helper routines
+        public void SeasonClearFields()
+        {
+            Season_Name_box.Text = "";
+            Season_Description_box.Text = "";
+            Season_Evaluation.Value = 0.0M;
+        }
+
+        public void SeasonLockControls()
+        {
+            Season_Name_box.ReadOnly = true;
+            Season_Description_box.ReadOnly = false;
+            Season_Evaluation.ReadOnly = false;
+            Season_date.Enabled = false;
+            Season_list_box.Enabled = true;
+        }
+
+        public void SeasonUnlockControls()
+        {
+            Season_Name_box.ReadOnly = false;
+            Season_Description_box.ReadOnly = false;
+            Season_Evaluation.ReadOnly = true;
+            Season_date.Enabled = true;
+            Season_list_box.Enabled = false;
+        }
+
+        public void SeasonShowButtons()
+        {
+            SeasonUnlockControls();
+            Season_Add_btn.Visible = false;
+            Season_Cancel_btn.Visible = true;
+            Season_Ok_btn.Visible = true;
+            Season_Delete_btn.Visible = false;
+        }
+
+        public void SeasonHideButtons()
+        {
+            SeasonLockControls();
+            Season_Add_btn.Visible = true;
+            Season_Cancel_btn.Visible = false;
+            Season_Ok_btn.Visible = false;
+            Season_Delete_btn.Visible = true;
         }
     }
 }
