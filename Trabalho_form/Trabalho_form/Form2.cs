@@ -21,5 +21,12 @@ namespace Trabalho_form
         {
 
         }
+
+        private void btn_LogOut_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form1 fl = new Form1();
+            fl.Show();
+        }
     }
 }

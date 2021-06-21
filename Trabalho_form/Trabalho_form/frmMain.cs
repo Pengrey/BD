@@ -9,24 +9,27 @@ namespace Trabalho_form
     {
         private SqlConnection cn;
         private int currentAnime;
+        private int currentAnime2;
         private bool adding;
-        private string userName;
-        public frmMain(String userName)
+        private int userID;
+        public frmMain(int userID)
         {
             InitializeComponent();
-            this.userName = userName;
+            this.userID = userID;
         }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            cn = getSGBDConnection();
+            loadVeAnimes();
+        }
+
         //btn_LogOut Click Event
-        private void btn_LogOut_Click(object sender, EventArgs e)
+        private void btn_LogOut_Click_1(object sender, EventArgs e)
         {
             this.Hide();
             Form1 fl = new Form1();
             fl.Show();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            cn = getSGBDConnection();
         }
 
         private SqlConnection getSGBDConnection()
@@ -45,31 +48,40 @@ namespace Trabalho_form
             return cn.State == ConnectionState.Open;
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex > 0)
+            if (listBox1.SelectedIndex >= 0)
             {
                 currentAnime = listBox1.SelectedIndex;
                 ShowAnime();
             }
         }
 
-        private void loadAnimesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedIndex >= 0)
+            {
+                currentAnime2 = listBox2.SelectedIndex;
+                ShowAnime2();
+            }
+        }
+
+        private void loadVeAnimes()
         {
             if (!verifySGBDConnection())
                 return;
 
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Customers", cn);
+            SqlCommand cmd = new SqlCommand("Select * from AnimeDB.ve where u_id=@userID", cn);
+            cmd.Parameters.AddWithValue("@userID", this.userID);
             SqlDataReader reader = cmd.ExecuteReader();
             listBox1.Items.Clear();
 
             while (reader.Read())
             {
                 Anime A = new Anime();
-                A.Name = reader["Nome_unico"].ToString();
-                A.Description = reader["Descricao"].ToString();
-                A.Avaliation = reader["Avaliacao"].ToString();
-                A.ReleaseDate = reader["Data_lancamento"].ToString();
+                A.Name = reader["Anime_nome"].ToString();
+                A.Progresso = reader["progresso"].ToString();
+                A.Estado = reader["estado"].ToString();
                 listBox1.Items.Add(A);
             }
 
@@ -80,16 +92,41 @@ namespace Trabalho_form
             ShowAnime();
         }
 
+        private void loadAnimes()
+        {
+            if (!verifySGBDConnection())
+                return;
+
+            SqlCommand cmd = new SqlCommand("Select * from AnimeDB.Anime", cn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            listBox2.Items.Clear();
+
+            while (reader.Read())
+            {
+                Anime A = new Anime();
+                A.Name = reader["Nome_unico"].ToString();
+                listBox2.Items.Add(A);
+            }
+
+            cn.Close();
+
+
+            currentAnime2 = 0;
+            ShowAnime2();
+        }
+
         private void SubmitAnime(Anime A)
         {
             if (!verifySGBDConnection())
                 return;
             SqlCommand cmd = new SqlCommand();
 
-            cmd.CommandText = "TODO : command to add anime and rating";
+            cmd.CommandText = "INSERT INTO AnimeDB.ve (u_id,Anime_nome,progresso,estado) VALUES ( @u_id, @Nome_unico, @progresso, @estado)";
             cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@u_id",this.userID.ToString());
             cmd.Parameters.AddWithValue("@Nome_unico", A.Name);
-            cmd.Parameters.AddWithValue("@Avaliacao", A.Avaliation);
+            cmd.Parameters.AddWithValue("@progresso", "0.00");
+            cmd.Parameters.AddWithValue("@estado", A.Estado);
             cmd.Connection = cn;
 
             try
@@ -106,48 +143,17 @@ namespace Trabalho_form
             }
         }
 
-        private void UpdateAnime(Anime A)
-        {
-            int rows = 0;
 
-            if (!verifySGBDConnection())
-                return;
-            SqlCommand cmd = new SqlCommand();
-
-            cmd.CommandText = "TODO: muda a avaliação";
-            cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@Nome_unico", A.Name);
-            cmd.Parameters.AddWithValue("@Avaliacao", A.Avaliation);
-            cmd.Connection = cn;
-
-            try
-            {
-                rows = cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Failed to update contact in database. \n ERROR MESSAGE: \n" + ex.Message);
-            }
-            finally
-            {
-                if (rows == 1)
-                    MessageBox.Show("Update OK");
-                else
-                    MessageBox.Show("Update NOT OK");
-
-                cn.Close();
-            }
-        }
-
-        private void RemoveAnime(string AnimeID)
+        private void RemoveAnime(string AnimeNome)
         {
             if (!verifySGBDConnection())
                 return;
             SqlCommand cmd = new SqlCommand();
-
-            cmd.CommandText = "TODO: remove anime do watched ";
+            
+            cmd.CommandText = "EXEC AnimeDB.delLineVe  @animeNome, @userID";
             cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@animeID", AnimeID);
+            cmd.Parameters.AddWithValue("@animeNome", AnimeNome);
+            cmd.Parameters.AddWithValue("@userID", this.userID);
             cmd.Connection = cn;
 
             try
@@ -168,13 +174,13 @@ namespace Trabalho_form
         public void LockControls()
         {
             textName.ReadOnly = true;
-            numericUpDown1.ReadOnly = true;
+            State_box.Enabled = false;
         }
 
         public void UnlockControls()
         {
-            textName.ReadOnly = true;
-            numericUpDown1.ReadOnly = true;
+            textName.ReadOnly = false;
+            State_box.Enabled = true;
         }
 
         public void ShowButtons()
@@ -182,15 +188,16 @@ namespace Trabalho_form
             LockControls();
             btn_Add.Visible = true;
             btn_delete.Visible = true;
-            btn_edit.Visible = true;
             btn_ok.Visible = false;
             btn_cancel.Visible = false;
+            label2.Visible = false;
+            listBox2.Visible = false;
         }
 
         public void ClearFields()
         {
             textName.Text = "";
-            numericUpDown1.Text = "";
+            State_box.Text = "";
         }
 
         public void ShowAnime()
@@ -200,8 +207,16 @@ namespace Trabalho_form
             Anime anime = new Anime();
             anime = (Anime)listBox1.Items[currentAnime];
             textName.Text = anime.Name;
-            numericUpDown1.Text = anime.Avaliation;
+            State_box.Text = anime.Estado;
+        }
 
+        public void ShowAnime2()
+        {
+            if (listBox2.Items.Count == 0 | currentAnime2 < 0)
+                return;
+            Anime anime = new Anime();
+            anime = (Anime)listBox2.Items[currentAnime2];
+            textName.Text = anime.Name;
         }
 
         public void HideButtons()
@@ -209,18 +224,19 @@ namespace Trabalho_form
             UnlockControls();
             btn_Add.Visible = false;
             btn_delete.Visible = false;
-            btn_edit.Visible = false;
             btn_ok.Visible = true;
             btn_cancel.Visible = true;
+            label2.Visible = true;
+            listBox2.Visible = true;
         }
 
         private bool SaveAnime()
         {
-            Anime anime = new Anime();
+            Anime anime = (Anime)listBox2.Items[currentAnime2];
             try
             {
                 anime.Name = textName.Text;
-                anime.Avaliation = numericUpDown1.Text;
+                anime.Estado = State_box.Text;
             }
             catch (Exception ex)
             {
@@ -231,11 +247,7 @@ namespace Trabalho_form
             {
                 SubmitAnime(anime);
                 listBox1.Items.Add(anime);
-            }
-            else
-            {
-                UpdateAnime(anime);
-                listBox1.Items[currentAnime] = anime;
+                loadVeAnimes();
             }
             return true;
         }
@@ -245,12 +257,16 @@ namespace Trabalho_form
             adding = true;
             ClearFields();
             HideButtons();
+            loadAnimes();
+            ShowAnime2();
             listBox1.Enabled = false;
+            State_box.Enabled = true;
         }
 
         private void btn_cancel_Click(object sender, EventArgs e)
         {
             listBox1.Enabled = true;
+            State_box.Enabled = false;
             if (listBox1.Items.Count > 0)
             {
                 currentAnime = listBox1.SelectedIndex;
@@ -266,19 +282,6 @@ namespace Trabalho_form
             ShowButtons();
         }
 
-        private void btn_edit_Click(object sender, EventArgs e)
-        {
-            currentAnime = listBox1.SelectedIndex;
-            if (currentAnime <= 0)
-            {
-                MessageBox.Show("Please select a contact to edit");
-                return;
-            }
-            adding = false;
-            HideButtons();
-            listBox1.Enabled = false;
-        }
-
         private void btn_ok_Click(object sender, EventArgs e)
         {
             try
@@ -290,6 +293,7 @@ namespace Trabalho_form
                 MessageBox.Show(ex.Message);
             }
             listBox1.Enabled = true;
+            State_box.Enabled = false;
             int idx = listBox1.FindString(textName.Text);
             listBox1.SelectedIndex = idx;
             ShowButtons();
@@ -327,6 +331,5 @@ namespace Trabalho_form
         {
             Application.Exit();
         }
-
     }
 }

@@ -31,6 +31,10 @@ namespace Trabalho_form
         {
             this.Anime_list_box = new System.Windows.Forms.ListBox();
             this.Anime_Box = new System.Windows.Forms.GroupBox();
+            this.Anime_Edit_btn = new System.Windows.Forms.Button();
+            this.Anime_Ok_btn = new System.Windows.Forms.Button();
+            this.Anime_Cancel_btn = new System.Windows.Forms.Button();
+            this.Anime_Add_btn = new System.Windows.Forms.Button();
             this.Est_email_label = new System.Windows.Forms.Label();
             this.Anime_Author_box = new System.Windows.Forms.ListBox();
             this.Anime_Est_email_box = new System.Windows.Forms.ListBox();
@@ -46,6 +50,10 @@ namespace Trabalho_form
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.Season_box = new System.Windows.Forms.GroupBox();
+            this.Season_Edit_btn = new System.Windows.Forms.Button();
+            this.Season_Ok_btn = new System.Windows.Forms.Button();
+            this.Season_Cancel_btn = new System.Windows.Forms.Button();
+            this.Season_Add_btn = new System.Windows.Forms.Button();
             this.Season_date = new System.Windows.Forms.DateTimePicker();
             this.label10 = new System.Windows.Forms.Label();
             this.Season_Evaluation = new System.Windows.Forms.NumericUpDown();
@@ -56,27 +64,20 @@ namespace Trabalho_form
             this.Season_Name_box = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.Episode_box = new System.Windows.Forms.GroupBox();
+            this.Episode_Edit_btn = new System.Windows.Forms.Button();
+            this.Episode_Ok_btn = new System.Windows.Forms.Button();
+            this.Episode_Cancel_btn = new System.Windows.Forms.Button();
+            this.Episode_Add_btn = new System.Windows.Forms.Button();
+            this.Episode_date = new System.Windows.Forms.DateTimePicker();
+            this.label14 = new System.Windows.Forms.Label();
+            this.Episode_Evaluation = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.Episode_Description_box = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.Episode_Name_box = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.Episode_list_box = new System.Windows.Forms.ListBox();
-            this.Episode_Name_box = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.Episode_Description_box = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.Episode_Evaluation = new System.Windows.Forms.NumericUpDown();
-            this.label14 = new System.Windows.Forms.Label();
-            this.Episode_date = new System.Windows.Forms.DateTimePicker();
-            this.Anime_Add_btn = new System.Windows.Forms.Button();
-            this.Anime_Cancel_btn = new System.Windows.Forms.Button();
-            this.Anime_Ok_btn = new System.Windows.Forms.Button();
-            this.Anime_Edit_btn = new System.Windows.Forms.Button();
-            this.Season_Add_btn = new System.Windows.Forms.Button();
-            this.Season_Cancel_btn = new System.Windows.Forms.Button();
-            this.Season_Ok_btn = new System.Windows.Forms.Button();
-            this.Season_Edit_btn = new System.Windows.Forms.Button();
-            this.Episode_Add_btn = new System.Windows.Forms.Button();
-            this.Episode_Cancel_btn = new System.Windows.Forms.Button();
-            this.Episode_Ok_btn = new System.Windows.Forms.Button();
-            this.Episode_Edit_btn = new System.Windows.Forms.Button();
+            this.btn_LogOut = new System.Windows.Forms.Button();
             this.Anime_Box.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Anime_Evaluation)).BeginInit();
             this.Season_box.SuspendLayout();
@@ -91,7 +92,7 @@ namespace Trabalho_form
             this.Anime_list_box.ItemHeight = 15;
             this.Anime_list_box.Location = new System.Drawing.Point(6, 25);
             this.Anime_list_box.Name = "Anime_list_box";
-            this.Anime_list_box.Size = new System.Drawing.Size(259, 829);
+            this.Anime_list_box.Size = new System.Drawing.Size(259, 814);
             this.Anime_list_box.TabIndex = 0;
             // 
             // Anime_Box
@@ -115,12 +116,48 @@ namespace Trabalho_form
             this.Anime_Box.Controls.Add(this.label2);
             this.Anime_Box.Controls.Add(this.label1);
             this.Anime_Box.Controls.Add(this.Anime_list_box);
-            this.Anime_Box.Location = new System.Drawing.Point(12, 12);
+            this.Anime_Box.Location = new System.Drawing.Point(12, 32);
             this.Anime_Box.Name = "Anime_Box";
-            this.Anime_Box.Size = new System.Drawing.Size(701, 869);
+            this.Anime_Box.Size = new System.Drawing.Size(701, 849);
             this.Anime_Box.TabIndex = 1;
             this.Anime_Box.TabStop = false;
             this.Anime_Box.Text = "Anime";
+            // 
+            // Anime_Edit_btn
+            // 
+            this.Anime_Edit_btn.Location = new System.Drawing.Point(556, 816);
+            this.Anime_Edit_btn.Name = "Anime_Edit_btn";
+            this.Anime_Edit_btn.Size = new System.Drawing.Size(75, 23);
+            this.Anime_Edit_btn.TabIndex = 18;
+            this.Anime_Edit_btn.Text = "Edit";
+            this.Anime_Edit_btn.UseVisualStyleBackColor = true;
+            // 
+            // Anime_Ok_btn
+            // 
+            this.Anime_Ok_btn.Location = new System.Drawing.Point(475, 816);
+            this.Anime_Ok_btn.Name = "Anime_Ok_btn";
+            this.Anime_Ok_btn.Size = new System.Drawing.Size(75, 23);
+            this.Anime_Ok_btn.TabIndex = 17;
+            this.Anime_Ok_btn.Text = "Ok";
+            this.Anime_Ok_btn.UseVisualStyleBackColor = true;
+            // 
+            // Anime_Cancel_btn
+            // 
+            this.Anime_Cancel_btn.Location = new System.Drawing.Point(394, 816);
+            this.Anime_Cancel_btn.Name = "Anime_Cancel_btn";
+            this.Anime_Cancel_btn.Size = new System.Drawing.Size(75, 23);
+            this.Anime_Cancel_btn.TabIndex = 16;
+            this.Anime_Cancel_btn.Text = "Cancel";
+            this.Anime_Cancel_btn.UseVisualStyleBackColor = true;
+            // 
+            // Anime_Add_btn
+            // 
+            this.Anime_Add_btn.Location = new System.Drawing.Point(313, 816);
+            this.Anime_Add_btn.Name = "Anime_Add_btn";
+            this.Anime_Add_btn.Size = new System.Drawing.Size(75, 23);
+            this.Anime_Add_btn.TabIndex = 15;
+            this.Anime_Add_btn.Text = "Add";
+            this.Anime_Add_btn.UseVisualStyleBackColor = true;
             // 
             // Est_email_label
             // 
@@ -265,12 +302,48 @@ namespace Trabalho_form
             this.Season_box.Controls.Add(this.Season_list_box);
             this.Season_box.Controls.Add(this.Season_Name_box);
             this.Season_box.Controls.Add(this.label7);
-            this.Season_box.Location = new System.Drawing.Point(743, 12);
+            this.Season_box.Location = new System.Drawing.Point(743, 32);
             this.Season_box.Name = "Season_box";
             this.Season_box.Size = new System.Drawing.Size(701, 433);
             this.Season_box.TabIndex = 2;
             this.Season_box.TabStop = false;
             this.Season_box.Text = "Seasons";
+            // 
+            // Season_Edit_btn
+            // 
+            this.Season_Edit_btn.Location = new System.Drawing.Point(569, 396);
+            this.Season_Edit_btn.Name = "Season_Edit_btn";
+            this.Season_Edit_btn.Size = new System.Drawing.Size(75, 23);
+            this.Season_Edit_btn.TabIndex = 12;
+            this.Season_Edit_btn.Text = "Edit";
+            this.Season_Edit_btn.UseVisualStyleBackColor = true;
+            // 
+            // Season_Ok_btn
+            // 
+            this.Season_Ok_btn.Location = new System.Drawing.Point(488, 396);
+            this.Season_Ok_btn.Name = "Season_Ok_btn";
+            this.Season_Ok_btn.Size = new System.Drawing.Size(75, 23);
+            this.Season_Ok_btn.TabIndex = 11;
+            this.Season_Ok_btn.Text = "Ok";
+            this.Season_Ok_btn.UseVisualStyleBackColor = true;
+            // 
+            // Season_Cancel_btn
+            // 
+            this.Season_Cancel_btn.Location = new System.Drawing.Point(407, 396);
+            this.Season_Cancel_btn.Name = "Season_Cancel_btn";
+            this.Season_Cancel_btn.Size = new System.Drawing.Size(75, 23);
+            this.Season_Cancel_btn.TabIndex = 10;
+            this.Season_Cancel_btn.Text = "Cancel";
+            this.Season_Cancel_btn.UseVisualStyleBackColor = true;
+            // 
+            // Season_Add_btn
+            // 
+            this.Season_Add_btn.Location = new System.Drawing.Point(326, 396);
+            this.Season_Add_btn.Name = "Season_Add_btn";
+            this.Season_Add_btn.Size = new System.Drawing.Size(75, 23);
+            this.Season_Add_btn.TabIndex = 9;
+            this.Season_Add_btn.Text = "Add";
+            this.Season_Add_btn.UseVisualStyleBackColor = true;
             // 
             // Season_date
             // 
@@ -361,12 +434,104 @@ namespace Trabalho_form
             this.Episode_box.Controls.Add(this.Episode_Name_box);
             this.Episode_box.Controls.Add(this.label11);
             this.Episode_box.Controls.Add(this.Episode_list_box);
-            this.Episode_box.Location = new System.Drawing.Point(743, 451);
+            this.Episode_box.Location = new System.Drawing.Point(743, 471);
             this.Episode_box.Name = "Episode_box";
-            this.Episode_box.Size = new System.Drawing.Size(701, 430);
+            this.Episode_box.Size = new System.Drawing.Size(701, 410);
             this.Episode_box.TabIndex = 3;
             this.Episode_box.TabStop = false;
             this.Episode_box.Text = "Episodes";
+            // 
+            // Episode_Edit_btn
+            // 
+            this.Episode_Edit_btn.Location = new System.Drawing.Point(569, 380);
+            this.Episode_Edit_btn.Name = "Episode_Edit_btn";
+            this.Episode_Edit_btn.Size = new System.Drawing.Size(75, 23);
+            this.Episode_Edit_btn.TabIndex = 12;
+            this.Episode_Edit_btn.Text = "Edit";
+            this.Episode_Edit_btn.UseVisualStyleBackColor = true;
+            // 
+            // Episode_Ok_btn
+            // 
+            this.Episode_Ok_btn.Location = new System.Drawing.Point(488, 380);
+            this.Episode_Ok_btn.Name = "Episode_Ok_btn";
+            this.Episode_Ok_btn.Size = new System.Drawing.Size(75, 23);
+            this.Episode_Ok_btn.TabIndex = 11;
+            this.Episode_Ok_btn.Text = "Ok";
+            this.Episode_Ok_btn.UseVisualStyleBackColor = true;
+            // 
+            // Episode_Cancel_btn
+            // 
+            this.Episode_Cancel_btn.Location = new System.Drawing.Point(407, 380);
+            this.Episode_Cancel_btn.Name = "Episode_Cancel_btn";
+            this.Episode_Cancel_btn.Size = new System.Drawing.Size(75, 23);
+            this.Episode_Cancel_btn.TabIndex = 10;
+            this.Episode_Cancel_btn.Text = "Cancel";
+            this.Episode_Cancel_btn.UseVisualStyleBackColor = true;
+            // 
+            // Episode_Add_btn
+            // 
+            this.Episode_Add_btn.Location = new System.Drawing.Point(326, 380);
+            this.Episode_Add_btn.Name = "Episode_Add_btn";
+            this.Episode_Add_btn.Size = new System.Drawing.Size(75, 23);
+            this.Episode_Add_btn.TabIndex = 9;
+            this.Episode_Add_btn.Text = "Add";
+            this.Episode_Add_btn.UseVisualStyleBackColor = true;
+            // 
+            // Episode_date
+            // 
+            this.Episode_date.Location = new System.Drawing.Point(488, 228);
+            this.Episode_date.Name = "Episode_date";
+            this.Episode_date.Size = new System.Drawing.Size(189, 23);
+            this.Episode_date.TabIndex = 8;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(410, 228);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(72, 15);
+            this.label14.TabIndex = 7;
+            this.label14.Text = "Launch date";
+            // 
+            // Episode_Evaluation
+            // 
+            this.Episode_Evaluation.Location = new System.Drawing.Point(350, 228);
+            this.Episode_Evaluation.Name = "Episode_Evaluation";
+            this.Episode_Evaluation.Size = new System.Drawing.Size(46, 23);
+            this.Episode_Evaluation.TabIndex = 6;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(282, 228);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(62, 15);
+            this.label13.TabIndex = 5;
+            this.label13.Text = "Evaluation";
+            // 
+            // Episode_Description_box
+            // 
+            this.Episode_Description_box.Location = new System.Drawing.Point(282, 114);
+            this.Episode_Description_box.Multiline = true;
+            this.Episode_Description_box.Name = "Episode_Description_box";
+            this.Episode_Description_box.Size = new System.Drawing.Size(395, 101);
+            this.Episode_Description_box.TabIndex = 4;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(282, 96);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(67, 15);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "Description";
+            // 
+            // Episode_Name_box
+            // 
+            this.Episode_Name_box.Location = new System.Drawing.Point(282, 40);
+            this.Episode_Name_box.Name = "Episode_Name_box";
+            this.Episode_Name_box.Size = new System.Drawing.Size(395, 23);
+            this.Episode_Name_box.TabIndex = 2;
             // 
             // label11
             // 
@@ -383,178 +548,25 @@ namespace Trabalho_form
             this.Episode_list_box.ItemHeight = 15;
             this.Episode_list_box.Location = new System.Drawing.Point(6, 22);
             this.Episode_list_box.Name = "Episode_list_box";
-            this.Episode_list_box.Size = new System.Drawing.Size(259, 394);
+            this.Episode_list_box.Size = new System.Drawing.Size(259, 379);
             this.Episode_list_box.TabIndex = 0;
             // 
-            // Episode_Name_box
+            // btn_LogOut
             // 
-            this.Episode_Name_box.Location = new System.Drawing.Point(282, 40);
-            this.Episode_Name_box.Name = "Episode_Name_box";
-            this.Episode_Name_box.Size = new System.Drawing.Size(395, 23);
-            this.Episode_Name_box.TabIndex = 2;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(282, 96);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(67, 15);
-            this.label12.TabIndex = 3;
-            this.label12.Text = "Description";
-            // 
-            // Episode_Description_box
-            // 
-            this.Episode_Description_box.Location = new System.Drawing.Point(282, 114);
-            this.Episode_Description_box.Multiline = true;
-            this.Episode_Description_box.Name = "Episode_Description_box";
-            this.Episode_Description_box.Size = new System.Drawing.Size(395, 101);
-            this.Episode_Description_box.TabIndex = 4;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(282, 228);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(62, 15);
-            this.label13.TabIndex = 5;
-            this.label13.Text = "Evaluation";
-            // 
-            // Episode_Evaluation
-            // 
-            this.Episode_Evaluation.Location = new System.Drawing.Point(350, 228);
-            this.Episode_Evaluation.Name = "Episode_Evaluation";
-            this.Episode_Evaluation.Size = new System.Drawing.Size(46, 23);
-            this.Episode_Evaluation.TabIndex = 6;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(410, 228);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(72, 15);
-            this.label14.TabIndex = 7;
-            this.label14.Text = "Launch date";
-            // 
-            // Episode_date
-            // 
-            this.Episode_date.Location = new System.Drawing.Point(488, 228);
-            this.Episode_date.Name = "Episode_date";
-            this.Episode_date.Size = new System.Drawing.Size(189, 23);
-            this.Episode_date.TabIndex = 8;
-            // 
-            // Anime_Add_btn
-            // 
-            this.Anime_Add_btn.Location = new System.Drawing.Point(313, 832);
-            this.Anime_Add_btn.Name = "Anime_Add_btn";
-            this.Anime_Add_btn.Size = new System.Drawing.Size(75, 23);
-            this.Anime_Add_btn.TabIndex = 15;
-            this.Anime_Add_btn.Text = "Add";
-            this.Anime_Add_btn.UseVisualStyleBackColor = true;
-            // 
-            // Anime_Cancel_btn
-            // 
-            this.Anime_Cancel_btn.Location = new System.Drawing.Point(394, 831);
-            this.Anime_Cancel_btn.Name = "Anime_Cancel_btn";
-            this.Anime_Cancel_btn.Size = new System.Drawing.Size(75, 23);
-            this.Anime_Cancel_btn.TabIndex = 16;
-            this.Anime_Cancel_btn.Text = "Cancel";
-            this.Anime_Cancel_btn.UseVisualStyleBackColor = true;
-            // 
-            // Anime_Ok_btn
-            // 
-            this.Anime_Ok_btn.Location = new System.Drawing.Point(475, 831);
-            this.Anime_Ok_btn.Name = "Anime_Ok_btn";
-            this.Anime_Ok_btn.Size = new System.Drawing.Size(75, 23);
-            this.Anime_Ok_btn.TabIndex = 17;
-            this.Anime_Ok_btn.Text = "Ok";
-            this.Anime_Ok_btn.UseVisualStyleBackColor = true;
-            // 
-            // Anime_Edit_btn
-            // 
-            this.Anime_Edit_btn.Location = new System.Drawing.Point(556, 831);
-            this.Anime_Edit_btn.Name = "Anime_Edit_btn";
-            this.Anime_Edit_btn.Size = new System.Drawing.Size(75, 23);
-            this.Anime_Edit_btn.TabIndex = 18;
-            this.Anime_Edit_btn.Text = "Edit";
-            this.Anime_Edit_btn.UseVisualStyleBackColor = true;
-            // 
-            // Season_Add_btn
-            // 
-            this.Season_Add_btn.Location = new System.Drawing.Point(326, 396);
-            this.Season_Add_btn.Name = "Season_Add_btn";
-            this.Season_Add_btn.Size = new System.Drawing.Size(75, 23);
-            this.Season_Add_btn.TabIndex = 9;
-            this.Season_Add_btn.Text = "Add";
-            this.Season_Add_btn.UseVisualStyleBackColor = true;
-            // 
-            // Season_Cancel_btn
-            // 
-            this.Season_Cancel_btn.Location = new System.Drawing.Point(407, 396);
-            this.Season_Cancel_btn.Name = "Season_Cancel_btn";
-            this.Season_Cancel_btn.Size = new System.Drawing.Size(75, 23);
-            this.Season_Cancel_btn.TabIndex = 10;
-            this.Season_Cancel_btn.Text = "Cancel";
-            this.Season_Cancel_btn.UseVisualStyleBackColor = true;
-            // 
-            // Season_Ok_btn
-            // 
-            this.Season_Ok_btn.Location = new System.Drawing.Point(488, 396);
-            this.Season_Ok_btn.Name = "Season_Ok_btn";
-            this.Season_Ok_btn.Size = new System.Drawing.Size(75, 23);
-            this.Season_Ok_btn.TabIndex = 11;
-            this.Season_Ok_btn.Text = "Ok";
-            this.Season_Ok_btn.UseVisualStyleBackColor = true;
-            // 
-            // Season_Edit_btn
-            // 
-            this.Season_Edit_btn.Location = new System.Drawing.Point(569, 396);
-            this.Season_Edit_btn.Name = "Season_Edit_btn";
-            this.Season_Edit_btn.Size = new System.Drawing.Size(75, 23);
-            this.Season_Edit_btn.TabIndex = 12;
-            this.Season_Edit_btn.Text = "Edit";
-            this.Season_Edit_btn.UseVisualStyleBackColor = true;
-            // 
-            // Episode_Add_btn
-            // 
-            this.Episode_Add_btn.Location = new System.Drawing.Point(326, 393);
-            this.Episode_Add_btn.Name = "Episode_Add_btn";
-            this.Episode_Add_btn.Size = new System.Drawing.Size(75, 23);
-            this.Episode_Add_btn.TabIndex = 9;
-            this.Episode_Add_btn.Text = "Add";
-            this.Episode_Add_btn.UseVisualStyleBackColor = true;
-            // 
-            // Episode_Cancel_btn
-            // 
-            this.Episode_Cancel_btn.Location = new System.Drawing.Point(407, 392);
-            this.Episode_Cancel_btn.Name = "Episode_Cancel_btn";
-            this.Episode_Cancel_btn.Size = new System.Drawing.Size(75, 23);
-            this.Episode_Cancel_btn.TabIndex = 10;
-            this.Episode_Cancel_btn.Text = "Cancel";
-            this.Episode_Cancel_btn.UseVisualStyleBackColor = true;
-            // 
-            // Episode_Ok_btn
-            // 
-            this.Episode_Ok_btn.Location = new System.Drawing.Point(488, 392);
-            this.Episode_Ok_btn.Name = "Episode_Ok_btn";
-            this.Episode_Ok_btn.Size = new System.Drawing.Size(75, 23);
-            this.Episode_Ok_btn.TabIndex = 11;
-            this.Episode_Ok_btn.Text = "Ok";
-            this.Episode_Ok_btn.UseVisualStyleBackColor = true;
-            // 
-            // Episode_Edit_btn
-            // 
-            this.Episode_Edit_btn.Location = new System.Drawing.Point(569, 392);
-            this.Episode_Edit_btn.Name = "Episode_Edit_btn";
-            this.Episode_Edit_btn.Size = new System.Drawing.Size(75, 23);
-            this.Episode_Edit_btn.TabIndex = 12;
-            this.Episode_Edit_btn.Text = "Edit";
-            this.Episode_Edit_btn.UseVisualStyleBackColor = true;
+            this.btn_LogOut.Location = new System.Drawing.Point(1379, 12);
+            this.btn_LogOut.Name = "btn_LogOut";
+            this.btn_LogOut.Size = new System.Drawing.Size(65, 24);
+            this.btn_LogOut.TabIndex = 4;
+            this.btn_LogOut.Text = "Log out";
+            this.btn_LogOut.UseVisualStyleBackColor = true;
+            this.btn_LogOut.Click += new System.EventHandler(this.btn_LogOut_Click);
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1456, 893);
+            this.Controls.Add(this.btn_LogOut);
             this.Controls.Add(this.Episode_box);
             this.Controls.Add(this.Season_box);
             this.Controls.Add(this.Anime_Box);
@@ -626,5 +638,6 @@ namespace Trabalho_form
         private System.Windows.Forms.Button Episode_Ok_btn;
         private System.Windows.Forms.Button Episode_Cancel_btn;
         private System.Windows.Forms.Button Episode_Add_btn;
+        private System.Windows.Forms.Button btn_LogOut;
     }
 }

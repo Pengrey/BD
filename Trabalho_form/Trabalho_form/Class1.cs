@@ -15,6 +15,8 @@ namespace Trabalho_form
 		private String _Description;
 		private String _Avaliation;
 		private String _ReleaseDate;
+		private String _Progresso;
+		private String _Estado;
 		public String Name
 		{
 			get { return _Name; }
@@ -27,6 +29,18 @@ namespace Trabalho_form
 				}
 				_Name = value; 
 			}
+		}
+
+		public String Progresso
+		{
+			get { return _Progresso; }
+			set { _Progresso = value; }
+		}
+
+		public String Estado
+		{
+			get { return _Estado; }
+			set { _Estado = value; }
 		}
 
 

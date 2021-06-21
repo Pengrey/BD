@@ -26,7 +26,7 @@ namespace Trabalho_form
             {
                 //Create SqlConnection
                 SqlConnection con = new SqlConnection(cs);
-                SqlCommand cmd = new SqlCommand("Select * from tbl_Login where UserName=@username and Password=@password", con);
+                SqlCommand cmd = new SqlCommand("Select * from AnimeDB.Utilizador where email=@username and Palavra_Passe=@password", con);
                 cmd.Parameters.AddWithValue("@username", text_UserName.Text);
                 cmd.Parameters.AddWithValue("@password", GetStringSha256Hash(text_Password.Text));
                 con.Open();
@@ -40,12 +40,15 @@ namespace Trabalho_form
                 {
                     MessageBox.Show("Login Successful!");
                     this.Hide();
-                    if (1 == int.Parse(ds.Tables[0].Rows[0][5/* atribute isAdmin index*/].ToString())) { // TODO check atribute column
-                        frmMain fm = new frmMain(text_UserName.Text);
+                    String isAdmin = "T";
+                    if (String.Equals(ds.Tables[0].Rows[0][3].ToString(), isAdmin)) { 
+                        Form2 fm = new Form2();
                         fm.Show();
                     }
-                    else {
-                        Form2 fm = new Form2();
+                    else
+                    {
+                        int userID = (int) ds.Tables[0].Rows[0][0];
+                        frmMain fm = new frmMain(userID);
                         fm.Show();
                     }
 
