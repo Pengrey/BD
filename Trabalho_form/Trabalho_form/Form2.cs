@@ -33,6 +33,7 @@ namespace Trabalho_form
             cn = getSGBDConnection();
             loadAnimes();
             loadSeasons();
+            loadEpisodes();
         }
 
         private void btn_LogOut_Click(object sender, EventArgs e)
@@ -155,6 +156,7 @@ namespace Trabalho_form
                 ShowAnime();
             }
             loadSeasons();
+            loadEpisodes();
         }
 
         private void Anime_Est_email_box_SelectedIndexChanged(object sender, EventArgs e)
@@ -423,6 +425,7 @@ namespace Trabalho_form
             {
                 currentSeason = Season_list_box.SelectedIndex;
                 ShowSeason();
+                loadEpisodes();
             }
         }
 
@@ -614,6 +617,253 @@ namespace Trabalho_form
             Season_Cancel_btn.Visible = false;
             Season_Ok_btn.Visible = false;
             Season_Delete_btn.Visible = true;
+        }
+
+        // Episodes
+
+        private void loadEpisodes()
+        {
+            if (!verifySGBDConnection())
+                return;
+
+            SqlCommand cmd = new SqlCommand("Select * from AnimeDB.Episodio WHERE Anime_nome = @Anime_nome and Temp_Nome = @Season_nome", cn);
+            cmd.Parameters.AddWithValue("@Anime_nome", ((Anime)Anime_list_box.Items[currentAnime]).Name);
+            cmd.Parameters.AddWithValue("@Season_nome", ((Season)Season_list_box.Items[currentSeason]).Name);
+            SqlDataReader reader = cmd.ExecuteReader();
+            Episode_list_box.Items.Clear();
+
+            while (reader.Read())
+            {
+                Episode E = new Episode();
+                E.Name = reader["Titulo"].ToString();
+                E.SeasonName = reader["Temp_Nome"].ToString();
+                E.AnimeName = reader["Anime_nome"].ToString();
+                E.Description = reader["Descricao"].ToString();
+                E.Avaliation = (decimal)reader["Avaliacao"];
+                E.Estudio = reader["Est_email"].ToString();
+                E.ReleaseDate = reader["Data_lancamento"].ToString();
+                Episode_list_box.Items.Add(E);
+            }
+
+            cn.Close();
+
+            currentEpisode = 0;
+            ShowEpisode();
+        }
+
+        public void ShowEpisode()
+        {
+            if (Episode_list_box.Items.Count == 0 | currentEpisode < 0)
+                return;
+            Episode episode = new Episode();
+            episode = (Episode)Episode_list_box.Items[currentEpisode];
+            Episode_Name_box.Text = episode.Name;
+            Episode_Description_box.Text = episode.Description;
+            Episode_Evaluation.Value = (decimal)episode.Avaliation;
+            Episode_date.Value = DateTime.ParseExact(episode.ReleaseDate.Split()[0], "dd/mm/yyyy", provider);
+        }
+
+        private void Episode_list_box_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Episode_list_box.SelectedIndex >= 0)
+            {
+                currentEpisode = Episode_list_box.SelectedIndex;
+                ShowEpisode();
+            }
+        }
+
+        private void Episode_Add_btn_Click(object sender, EventArgs e)
+        {
+            EpisodeClearFields();
+            EpisodeShowButtons();
+        }
+
+        private void Episode_Cancel_btn_Click(object sender, EventArgs e)
+        {
+            EpisodeHideButtons();
+            if (Episode_list_box.Items.Count > 0)
+            {
+                currentEpisode = Episode_list_box.SelectedIndex;
+                if (currentEpisode < 0)
+                    currentEpisode = 0;
+                ShowEpisode();
+            }
+            else
+            {
+                EpisodeLockControls();
+            }
+        }
+
+        private void Episode_Ok_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveEpisode();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            int idx = Episode_list_box.FindString(Episode_Name_box.Text);
+            Episode_list_box.SelectedIndex = idx;
+            EpisodeHideButtons();
+        }
+
+        private bool SaveEpisode()
+        {
+            Episode episode = (Episode)Episode_list_box.Items[currentEpisode];
+            Season season = (Season)Season_list_box.Items[currentSeason];
+            Anime anime = (Anime)Anime_list_box.Items[currentAnime];
+            try
+            {
+                episode.Name = Episode_Name_box.Text;
+                episode.SeasonName = season.Name;
+                episode.AnimeName = anime.Name;
+                episode.Description = Episode_Description_box.Text;
+                episode.Avaliation = Episode_Evaluation.Value;
+                episode.Estudio = anime.Estudio;
+                episode.ReleaseDate = Episode_date.Value.ToString("yyyy-MM-dd");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+            SubmitEpisode(episode);
+            Episode_list_box.Items.Add(episode);
+            loadEpisodes();
+            return true;
+        }
+
+        private void SubmitEpisode(Episode E)
+        {
+            if (!verifySGBDConnection())
+                return;
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.CommandText = "INSERT INTO AnimeDB.Episodio(Titulo,Temp_Nome,Anime_nome,Descricao,Avaliacao,Est_email,Data_lancamento) VALUES ( @Titulo, @Temp_Nome, @Anime_nome, @Descricao, @Avaliacao, @Est_email,  @Data_lancamento)";
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@Titulo", E.Name);
+            cmd.Parameters.AddWithValue("@Temp_Nome", E.SeasonName);
+            cmd.Parameters.AddWithValue("@Anime_nome", E.AnimeName);
+            cmd.Parameters.AddWithValue("@Descricao", E.Description);
+            cmd.Parameters.AddWithValue("@Avaliacao", E.Avaliation);
+            cmd.Parameters.AddWithValue("@Est_email", E.Estudio);
+            cmd.Parameters.AddWithValue("@Data_lancamento", E.ReleaseDate);
+            cmd.Connection = cn;
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to update episode in database. \n ERROR MESSAGE: \n" + ex.Message);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        private void Episode_Delete_btn_Click(object sender, EventArgs e)
+        {
+            if (Episode_list_box.SelectedIndex > -1)
+            {
+                try
+                {
+                    Episode episode = (Episode)Episode_list_box.SelectedItem;
+                    RemoveEpisode(episode.Name, episode.SeasonName, episode.AnimeName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                Episode_list_box.Items.RemoveAt(Episode_list_box.SelectedIndex);
+                if (currentEpisode == Episode_list_box.Items.Count)
+                    currentEpisode = Episode_list_box.Items.Count - 1;
+                if (currentEpisode == -1)
+                {
+                    EpisodeClearFields();
+                    MessageBox.Show("There are no more episodes");
+                }
+                else
+                {
+                    ShowEpisode();
+                }
+            }
+        }
+
+        private void RemoveEpisode(string EpisodeNome, string SeasonNome, string SeasonAnime)
+        {
+            if (!verifySGBDConnection())
+                return;
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.CommandText = "EXEC AnimeDB.DeleteEp @seasonAnime, @seasonNome, @seasonEpisodio";
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@seasonEpisodio", EpisodeNome);
+            cmd.Parameters.AddWithValue("@seasonAnime", SeasonAnime);
+            cmd.Parameters.AddWithValue("@seasonNome", SeasonNome);
+            cmd.Connection = cn;
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to delete episode in database. \n ERROR MESSAGE: \n" + ex.Message);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        // Episode Helper routines
+        public void EpisodeClearFields()
+        {
+            Episode_Name_box.Text = "";
+            Episode_Description_box.Text = "";
+            Episode_Evaluation.Value = 0.0M;
+        }
+
+        public void EpisodeLockControls()
+        {
+            Episode_Name_box.ReadOnly = true;
+            Episode_Description_box.ReadOnly = false;
+            Episode_Evaluation.ReadOnly = false;
+            Episode_date.Enabled = false;
+            Episode_list_box.Enabled = true;
+        }
+
+        public void EpisodeUnlockControls()
+        {
+            Episode_Name_box.ReadOnly = false;
+            Episode_Description_box.ReadOnly = false;
+            Episode_Evaluation.ReadOnly = true;
+            Episode_date.Enabled = true;
+            Episode_list_box.Enabled = false;
+        }
+
+        public void EpisodeShowButtons()
+        {
+            EpisodeUnlockControls();
+            Episode_Add_btn.Visible = false;
+            Episode_Cancel_btn.Visible = true;
+            Episode_Ok_btn.Visible = true;
+            Episode_Delete_btn.Visible = false;
+        }
+
+        public void EpisodeHideButtons()
+        {
+            EpisodeLockControls();
+            Episode_Add_btn.Visible = true;
+            Episode_Cancel_btn.Visible = false;
+            Episode_Ok_btn.Visible = false;
+            Episode_Delete_btn.Visible = true;
         }
     }
 }

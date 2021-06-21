@@ -480,6 +480,7 @@ namespace Trabalho_form
             this.Episode_Delete_btn.TabIndex = 12;
             this.Episode_Delete_btn.Text = "Delete";
             this.Episode_Delete_btn.UseVisualStyleBackColor = true;
+            this.Episode_Delete_btn.Click += new System.EventHandler(this.Episode_Delete_btn_Click);
             // 
             // Episode_Ok_btn
             // 
@@ -490,6 +491,7 @@ namespace Trabalho_form
             this.Episode_Ok_btn.Text = "Ok";
             this.Episode_Ok_btn.UseVisualStyleBackColor = true;
             this.Episode_Ok_btn.Visible = false;
+            this.Episode_Ok_btn.Click += new System.EventHandler(this.Episode_Ok_btn_Click);
             // 
             // Episode_Cancel_btn
             // 
@@ -500,6 +502,7 @@ namespace Trabalho_form
             this.Episode_Cancel_btn.Text = "Cancel";
             this.Episode_Cancel_btn.UseVisualStyleBackColor = true;
             this.Episode_Cancel_btn.Visible = false;
+            this.Episode_Cancel_btn.Click += new System.EventHandler(this.Episode_Cancel_btn_Click);
             // 
             // Episode_Add_btn
             // 
@@ -509,6 +512,7 @@ namespace Trabalho_form
             this.Episode_Add_btn.TabIndex = 9;
             this.Episode_Add_btn.Text = "Add";
             this.Episode_Add_btn.UseVisualStyleBackColor = true;
+            this.Episode_Add_btn.Click += new System.EventHandler(this.Episode_Add_btn_Click);
             // 
             // Episode_date
             // 
@@ -583,6 +587,7 @@ namespace Trabalho_form
             this.Episode_list_box.Name = "Episode_list_box";
             this.Episode_list_box.Size = new System.Drawing.Size(259, 379);
             this.Episode_list_box.TabIndex = 0;
+            this.Episode_list_box.SelectedIndexChanged += new System.EventHandler(this.Episode_list_box_SelectedIndexChanged);
             // 
             // btn_LogOut
             // 
