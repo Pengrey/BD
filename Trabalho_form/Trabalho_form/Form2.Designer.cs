@@ -31,7 +31,7 @@ namespace Trabalho_form
         {
             this.Anime_list_box = new System.Windows.Forms.ListBox();
             this.Anime_Box = new System.Windows.Forms.GroupBox();
-            this.Anime_Edit_btn = new System.Windows.Forms.Button();
+            this.Anime_Delete_btn = new System.Windows.Forms.Button();
             this.Anime_Ok_btn = new System.Windows.Forms.Button();
             this.Anime_Cancel_btn = new System.Windows.Forms.Button();
             this.Anime_Add_btn = new System.Windows.Forms.Button();
@@ -98,7 +98,7 @@ namespace Trabalho_form
             // 
             // Anime_Box
             // 
-            this.Anime_Box.Controls.Add(this.Anime_Edit_btn);
+            this.Anime_Box.Controls.Add(this.Anime_Delete_btn);
             this.Anime_Box.Controls.Add(this.Anime_Ok_btn);
             this.Anime_Box.Controls.Add(this.Anime_Cancel_btn);
             this.Anime_Box.Controls.Add(this.Anime_Add_btn);
@@ -124,14 +124,15 @@ namespace Trabalho_form
             this.Anime_Box.TabStop = false;
             this.Anime_Box.Text = "Anime";
             // 
-            // Anime_Edit_btn
+            // Anime_Delete_btn
             // 
-            this.Anime_Edit_btn.Location = new System.Drawing.Point(556, 816);
-            this.Anime_Edit_btn.Name = "Anime_Edit_btn";
-            this.Anime_Edit_btn.Size = new System.Drawing.Size(75, 23);
-            this.Anime_Edit_btn.TabIndex = 18;
-            this.Anime_Edit_btn.Text = "Edit";
-            this.Anime_Edit_btn.UseVisualStyleBackColor = true;
+            this.Anime_Delete_btn.Location = new System.Drawing.Point(556, 816);
+            this.Anime_Delete_btn.Name = "Anime_Delete_btn";
+            this.Anime_Delete_btn.Size = new System.Drawing.Size(75, 23);
+            this.Anime_Delete_btn.TabIndex = 18;
+            this.Anime_Delete_btn.Text = "Delete";
+            this.Anime_Delete_btn.UseVisualStyleBackColor = true;
+            this.Anime_Delete_btn.Click += new System.EventHandler(this.Anime_Delete_btn_Click);
             // 
             // Anime_Ok_btn
             // 
@@ -651,7 +652,7 @@ namespace Trabalho_form
         private System.Windows.Forms.Button Anime_Add_btn;
         private System.Windows.Forms.Button Anime_Cancel_btn;
         private System.Windows.Forms.Button Anime_Ok_btn;
-        private System.Windows.Forms.Button Anime_Edit_btn;
+        private System.Windows.Forms.Button Anime_Delete_btn;
         private System.Windows.Forms.Button Season_Edit_btn;
         private System.Windows.Forms.Button Season_Ok_btn;
         private System.Windows.Forms.Button Season_Cancel_btn;

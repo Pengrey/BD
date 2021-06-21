@@ -194,6 +194,34 @@ namespace Trabalho_form
             }
         }
 
+        private void Anime_Delete_btn_Click(object sender, EventArgs e)
+        {
+            if (Anime_list_box.SelectedIndex > -1)
+            {
+                try
+                {
+                    RemoveAnime(((Anime)Anime_list_box.SelectedItem).Name);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                Anime_list_box.Items.RemoveAt(Anime_list_box.SelectedIndex);
+                if (currentAnime == Anime_list_box.Items.Count)
+                    currentAnime = Anime_list_box.Items.Count - 1;
+                if (currentAnime == -1)
+                {
+                    AnimeClearFields();
+                    MessageBox.Show("There are no more contacts");
+                }
+                else
+                {
+                    ShowAnime();
+                }
+            }
+        }
+
         private void SubmitAnime(Anime A)
         {
             if (!verifySGBDConnection())
@@ -218,6 +246,31 @@ namespace Trabalho_form
             catch (Exception ex)
             {
                 throw new Exception("Failed to update anime in database. \n ERROR MESSAGE: \n" + ex.Message);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        private void RemoveAnime(string AnimeNome)
+        {
+            if (!verifySGBDConnection())
+                return;
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.CommandText = "EXEC AnimeDB.DeleteAnim @animeNome";
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@animeNome", AnimeNome);
+            cmd.Connection = cn;
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to delete anime in database. \n ERROR MESSAGE: \n" + ex.Message);
             }
             finally
             {
@@ -295,7 +348,7 @@ namespace Trabalho_form
             Anime_Add_btn.Visible = false;
             Anime_Cancel_btn.Visible = true;
             Anime_Ok_btn.Visible = true;
-            Anime_Edit_btn.Visible = false;
+            Anime_Delete_btn.Visible = false;
         }
 
         public void AnimeHideButtons()
@@ -308,7 +361,7 @@ namespace Trabalho_form
             Anime_Add_btn.Visible = true;
             Anime_Cancel_btn.Visible = false;
             Anime_Ok_btn.Visible = false;
-            Anime_Edit_btn.Visible = true;
+            Anime_Delete_btn.Visible = true;
         }
 
         public void AnimeClearFields()
