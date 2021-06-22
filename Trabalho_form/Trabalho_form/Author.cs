@@ -9,7 +9,7 @@ namespace Trabalho_form
 	class Author
 	{
 		private string _ID;
-		private string _city;
+		private string _Nome;
 
 
 		public String ID
@@ -26,15 +26,15 @@ namespace Trabalho_form
 			}
 		}
 
-		public String city
+		public String Nome
 		{
-			get { return _city; }
-			set { _city = value; }
+			get { return _Nome; }
+			set { _Nome = value; }
 		}
 
 		public override String ToString()
 		{
-			return _ID;
+			return _Nome;
 		}
 	}
 }

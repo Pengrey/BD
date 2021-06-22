@@ -118,15 +118,15 @@ namespace Trabalho_form
             if (!verifySGBDConnection())
                 return;
 
-            SqlCommand cmd = new SqlCommand("Select * from AnimeDB.Autor", cn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM AnimeDB.id_autor", cn);
             SqlDataReader reader = cmd.ExecuteReader();
             Anime_Author_box.Items.Clear();
 
             while (reader.Read())
             {
                 Author A = new Author();
-                A.ID = reader["ID"].ToString();
-                A.city = reader["city"].ToString();
+                A.ID = reader["id"].ToString();
+                A.Nome = reader["nome"].ToString();
                 Anime_Author_box.Items.Add(A);
             }
 
@@ -307,7 +307,7 @@ namespace Trabalho_form
                 anime.Description = Anime_Description_box.Text;
                 anime.Avaliation = Anime_Evaluation.Value;
                 anime.Estudio = Anime_Est_email_box.Items[currentStudio].ToString();
-                anime.Autor = Anime_Author_box.Items[currentAuthor].ToString();
+                anime.Autor = ((Author)Anime_Author_box.Items[currentAuthor]).ID;
                 anime.Estado = Anime_State_box.Text;
                 anime.ReleaseDate = Anime_date.Value.ToString("yyyy-MM-dd");
             }
@@ -384,6 +384,7 @@ namespace Trabalho_form
             if (!verifySGBDConnection())
                 return;
 
+
             SqlCommand cmd = new SqlCommand("Select * from AnimeDB.Temporada WHERE Anime_nome = @Anime_nome", cn);
             cmd.Parameters.AddWithValue("@Anime_nome", ((Anime) Anime_list_box.Items[currentAnime]).Name);
             SqlDataReader reader = cmd.ExecuteReader();
@@ -402,7 +403,11 @@ namespace Trabalho_form
             }
 
             cn.Close();
-
+            if (Season_list_box.Items.Count == 0)
+            {
+                SeasonClearFields();
+                return;
+            }
             currentSeason = 0;
             ShowSeason();
         }
@@ -468,7 +473,7 @@ namespace Trabalho_form
 
         private bool SaveSeason()
         {
-            Season season = (Season)Season_list_box.Items[currentSeason];
+            Season season = new Season();
             Anime anime = (Anime)Anime_list_box.Items[currentAnime];
             try
             {
@@ -626,6 +631,13 @@ namespace Trabalho_form
             if (!verifySGBDConnection())
                 return;
 
+            if (Season_list_box.Items.Count == 0)
+            {
+                EpisodeClearFields();
+                Episode_list_box.Items.Clear();
+                return;
+            }
+            
             SqlCommand cmd = new SqlCommand("Select * from AnimeDB.Episodio WHERE Anime_nome = @Anime_nome and Temp_Nome = @Season_nome", cn);
             cmd.Parameters.AddWithValue("@Anime_nome", ((Anime)Anime_list_box.Items[currentAnime]).Name);
             cmd.Parameters.AddWithValue("@Season_nome", ((Season)Season_list_box.Items[currentSeason]).Name);
@@ -646,7 +658,11 @@ namespace Trabalho_form
             }
 
             cn.Close();
-
+            if (Episode_list_box.Items.Count == 0)
+            {
+                EpisodeClearFields();
+                return;
+            }
             currentEpisode = 0;
             ShowEpisode();
         }
@@ -711,7 +727,7 @@ namespace Trabalho_form
 
         private bool SaveEpisode()
         {
-            Episode episode = (Episode)Episode_list_box.Items[currentEpisode];
+            Episode episode = new Episode();
             Season season = (Season)Season_list_box.Items[currentSeason];
             Anime anime = (Anime)Anime_list_box.Items[currentAnime];
             try
