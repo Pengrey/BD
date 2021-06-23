@@ -233,7 +233,7 @@ namespace Trabalho_form
                 if (currentAnime == -1)
                 {
                     AnimeClearFields();
-                    MessageBox.Show("There are no more contacts");
+                    MessageBox.Show("There are no more animes");
                 }
                 else
                 {

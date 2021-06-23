@@ -393,6 +393,11 @@ namespace Trabalho_form
             // Season_Evaluation
             // 
             this.Season_Evaluation.DecimalPlaces = 1;
+            this.Season_Evaluation.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.Season_Evaluation.Location = new System.Drawing.Point(350, 216);
             this.Season_Evaluation.Name = "Season_Evaluation";
             this.Season_Evaluation.Size = new System.Drawing.Size(46, 23);
@@ -532,7 +537,17 @@ namespace Trabalho_form
             // 
             // Episode_Evaluation
             // 
+            this.Episode_Evaluation.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.Episode_Evaluation.Location = new System.Drawing.Point(350, 228);
+            this.Episode_Evaluation.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.Episode_Evaluation.Name = "Episode_Evaluation";
             this.Episode_Evaluation.Size = new System.Drawing.Size(46, 23);
             this.Episode_Evaluation.TabIndex = 6;
