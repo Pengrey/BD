@@ -12,7 +12,7 @@ namespace Trabalho_form
             InitializeComponent();
         }
         //Connection String
-        string cs = "Data Source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p5g1; uid = p5g1; password = r0*7rFeu03Z";
+        string cs = "Data Source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p5g1; uid = p5g1; password = r0*7rFeu03Z"; // Mudar aqui para o server a conectar
 
         //btn_Submit Click event
         private void btn_Submit_Click(object sender, EventArgs e)

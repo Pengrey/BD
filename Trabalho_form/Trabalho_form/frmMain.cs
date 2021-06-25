@@ -34,7 +34,7 @@ namespace Trabalho_form
 
         private SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("Data Source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p5g1; uid = p5g1; password = r0*7rFeu03Z");
+            return new SqlConnection("Data Source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p5g1; uid = p5g1; password = r0*7rFeu03Z"); // Mudar aqui para o server a conectar
         }
 
         private bool verifySGBDConnection()
@@ -208,6 +208,8 @@ namespace Trabalho_form
             anime = (Anime)listBox1.Items[currentAnime];
             textName.Text = anime.Name;
             State_box.Text = anime.Estado;
+            decimal progress;
+            AnimeProgressBar.Value = int.Parse(anime.Progresso.Replace("0,", ""));
         }
 
         public void ShowAnime2()

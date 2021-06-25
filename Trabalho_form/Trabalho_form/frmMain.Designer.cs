@@ -42,6 +42,8 @@ namespace Trabalho_form
             this.btn_Add = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.AnimeProgressBar = new System.Windows.Forms.ProgressBar();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +69,8 @@ namespace Trabalho_form
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.AnimeProgressBar);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.listBox2);
             this.panel1.Controls.Add(this.State_box);
@@ -184,6 +188,22 @@ namespace Trabalho_form
             this.label1.TabIndex = 0;
             this.label1.Text = "Anime Name";
             // 
+            // AnimeProgressBar
+            // 
+            this.AnimeProgressBar.Location = new System.Drawing.Point(178, 111);
+            this.AnimeProgressBar.Name = "AnimeProgressBar";
+            this.AnimeProgressBar.Size = new System.Drawing.Size(219, 23);
+            this.AnimeProgressBar.TabIndex = 13;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(180, 87);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(52, 15);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Progress";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -216,5 +236,7 @@ namespace Trabalho_form
         private System.Windows.Forms.ComboBox State_box;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ProgressBar AnimeProgressBar;
     }
 }
