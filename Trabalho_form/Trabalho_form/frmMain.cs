@@ -208,8 +208,7 @@ namespace Trabalho_form
             anime = (Anime)listBox1.Items[currentAnime];
             textName.Text = anime.Name;
             State_box.Text = anime.Estado;
-            decimal progress;
-            AnimeProgressBar.Value = int.Parse(anime.Progresso.Replace("0,", ""));
+            AnimeProgressBar.Value = int.Parse(anime.Progresso.Replace("0,", "").Replace(",", ""));
         }
 
         public void ShowAnime2()
